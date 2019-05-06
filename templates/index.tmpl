@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+
+<body>
+	<h2>
+		{{.PageTitle}}
+	</h2>
+	<div>
+	<table id="myTable" class="display">
+	<thead>
+	  <tr class="tr_title" >
+		<td style="vertical-align: middle; ">Name</td>
+		<td style="vertical-align: middle; ">Position</td>
+		<td style="vertical-align: middle; ">Office</td>
+		<td style="vertical-align: middle; ">Age</td>
+	  </tr>
+	</thead>
+
+	{{range $v := .Todos}}
+      <tr>
+		<td style="vertical-align: middle; ">{{$v.Name}}</td>
+		<td style="vertical-align: middle; ">{{$v.Position}}</td>
+		<td style="">{{$v.Office}}</td>
+		<td style="">{{$v.Age}}</td>
+	  </tr>
+	{{end}}
+
+	</table>
+	</div>
+
+	<script language="JavaScript">
+			$(document).ready( function () {
+    $('#myTable').DataTable({
+        "paging":         true,
+		"lengthMenu":  [[25, -1],[25,"All"]]
+	});
+	} );
+	</script>
+</body>
+</html>
+
