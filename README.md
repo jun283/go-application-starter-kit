@@ -5,12 +5,15 @@ A lite go application starter kit for application development. Built-in error lo
 ### How to use
 
 1. Single instance(Singleton): only one instance can runing
+
        Singleton()
 
 2. Error log:
-       errLog.Fatal("[error]opening error file: %v", err)
 
+       errLog.Fatal("[error]opening error file: %v", err)
+       
 3. Events log:
+
        logger.Println("Start......")
 
 ### Middleware
