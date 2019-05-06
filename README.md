@@ -1,6 +1,6 @@
 # go-application-starter-kit
 
-A lite go application starter kit for application development. Built-in error log,events log, auth, mux,and Middleware etc.
+A little go application starter kit for application development. Built-in error log,events log, auth, mux,and Middleware etc.
 
 ### How to use
 
