@@ -30,7 +30,8 @@ var (
 )
 
 type Config struct {
-	Debug bool
+	Debug  bool
+	Authen bool
 }
 
 func init() {
@@ -98,7 +99,7 @@ func main() {
 	///use auth Middleware
 	amw := authenticationMiddleware{}
 	amw.Populate()
-	if !conf.Debug {
+	if conf.Authen {
 		r.Use(amw.Middleware)
 	}
 

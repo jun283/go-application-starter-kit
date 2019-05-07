@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net"
 	"net/http"
 )
 
@@ -34,8 +35,8 @@ func (amw *authenticationMiddleware) Populate() {
 	amw.tokenUsers["deadbeef"] = "user0"
 
 	//Populate allow ip
-	//amw.allowIPs["[::1]"] = "local"
-	//amw.allowIPs["220.255.95.44"] = "office"
+	amw.allowIPs["::1"] = "local"
+	amw.allowIPs["220.255.95.44"] = "office"
 
 }
 
@@ -43,10 +44,16 @@ func (amw *authenticationMiddleware) Populate() {
 func (amw *authenticationMiddleware) Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		token := r.Header.Get("X-Session-Token")
+		ip, _, _ := net.SplitHostPort(r.RemoteAddr)
 
 		if user, found := amw.tokenUsers[token]; found {
 			// We found the token in our map
 			logger.Printf("Authenticated user %s\n", user)
+			// Pass down the request to the next middleware (or final handler)
+			next.ServeHTTP(w, r)
+		} else if location, found := amw.allowIPs[ip]; found {
+			// We found the ip in our allow ip
+			logger.Printf("Authenticated from %s\n", location)
 			// Pass down the request to the next middleware (or final handler)
 			next.ServeHTTP(w, r)
 		} else {
